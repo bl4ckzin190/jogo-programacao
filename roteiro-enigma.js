@@ -1,117 +1,38 @@
-// Senhas corretas
-const senhasCorretas = {
-    senha1: 'PROGRAMAR',
-    senha2: 'DESIGN',
-    senha3: 'FUTURO'
-};
+// 🟩 SENHAS CERTAS DO ENIGMA
+const senhaCorreta1 = "vento";
+const senhaCorreta2 = "folha";
 
-let tempo = 0;
-let timer;
+// 🔍 Função que confere as duas senhas
+function conferirSenhas() {
+    const s1 = document.getElementById("senha1").value.trim().toLowerCase();
+    const s2 = document.getElementById("senha2").value.trim().toLowerCase();
+    const msg = document.getElementById("mensagem");
+    const botaoRefazer = document.getElementById("refazer");
 
-// Normalização
-const normalizar = str =>
-    str.normalize("NFD")
-       .replace(/[\u0300-\u036f]/g, "")
-       .toUpperCase()
-       .trim();
-
-// -----------------------------
-// VERIFICAÇÃO DAS SENHAS
-// -----------------------------
-function verificarSenhas() {
-    const senha1 = normalizar(document.getElementById('senha1').value);
-    const senha2 = normalizar(document.getElementById('senha2').value);
-    const senha3 = normalizar(document.getElementById('senha3').value);
-
-    const errorMsg = document.getElementById('error-message');
-
-    if (!senha1 || !senha2 || !senha3) {
-        errorMsg.textContent = '⚠️ Preencha todas as 3 senhas!';
-        errorMsg.style.display = 'block';
+    // Se ambos estiverem certos
+    if (s1 === senhaCorreta1 && s2 === senhaCorreta2) {
+        msg.style.color = "#2bff73";
+        msg.innerText = "✔ Senhas corretas! Enigma concluído!";
+        botaoRefazer.style.display = "block";
         return;
     }
 
-    if (
-        senha1 === senhasCorretas.senha1 &&
-        senha2 === senhasCorretas.senha2 &&
-        senha3 === senhasCorretas.senha3
-    ) {
-        errorMsg.style.display = 'none';
-        desbloquearEnigma();
-    } else {
-        errorMsg.innerHTML = `
-            <p>❌ ACESSO NEGADO!</p>
-            <p>Uma ou mais senhas estão incorretas.</p>
-            <p>Verifique os cards e tente novamente.</p>
-        `;
-        errorMsg.style.display = 'block';
-        errorMsg.style.animation = 'shake 0.5s';
+    // Mensagem de erro personalizada
+    msg.style.color = "#ff3b3b";
 
-        setTimeout(() => {
-            errorMsg.style.animation = '';
-        }, 500);
+    if (s1 !== senhaCorreta1 && s2 !== senhaCorreta2) {
+        msg.innerText = "❌ Ambas as senhas estão erradas.";
+    } else if (s1 !== senhaCorreta1) {
+        msg.innerText = "❌ A primeira senha está incorreta.";
+    } else if (s2 !== senhaCorreta2) {
+        msg.innerText = "❌ A segunda senha está incorreta.";
     }
 }
 
-// -----------------------------
-// TELA DO ENIGMA
-// -----------------------------
-function desbloquearEnigma() {
-    document.getElementById("password-screen").style.display = "none";
-    document.getElementById("enigma-screen").style.display = "block";
-
-    iniciarTimer();
+// 🔄 Função para limpar e reiniciar o enigma
+function refazerEnigma() {
+    document.getElementById("senha1").value = "";
+    document.getElementById("senha2").value = "";
+    document.getElementById("mensagem").innerText = "";
+    document.getElementById("refazer").style.display = "none";
 }
-
-function iniciarTimer() {
-    timer = setInterval(() => {
-        tempo++;
-        atualizarTimer();
-    }, 1000);
-}
-
-function atualizarTimer() {
-    const minutos = String(Math.floor(tempo / 60)).padStart(2, '0');
-    const segundos = String(tempo % 60).padStart(2, '0');
-    document.getElementById("timer-display").textContent = `${minutos}:${segundos}`;
-}
-
-// -----------------------------
-// VERIFICAÇÃO DO ENIGMA
-// -----------------------------
-function verificarEnigma() {
-    const r1 = parseInt(document.getElementById("answer1").value);
-    const r2 = parseInt(document.getElementById("answer2").value);
-    const r3 = parseInt(document.getElementById("answer3").value);
-
-    const erro = document.getElementById("enigma-error");
-
-    if (r1 === 13 && r2 === 21 && r3 === 34) {
-        erro.style.display = "none";
-        finalizarMissao();
-    } else {
-        erro.style.display = "block";
-        erro.style.animation = "shake 0.5s";
-
-        setTimeout(() => {
-            erro.style.animation = "";
-        }, 500);
-    }
-}
-
-// -----------------------------
-// TELA DE VITÓRIA
-// -----------------------------
-function finalizarMissao() {
-    clearInterval(timer);
-
-    document.getElementById("enigma-screen").style.display = "none";
-    document.getElementById("victory-screen").style.display = "block";
-
-    const minutos = String(Math.floor(tempo / 60)).padStart(2, '0');
-    const segundos = String(tempo % 60).padStart(2, '0');
-    
-    document.getElementById("final-time").textContent = `${minutos}:${segundos}`;
-}
-
-
