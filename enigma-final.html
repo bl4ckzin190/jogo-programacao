@@ -1,51 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Enigma Final — Senhas</title>
-  <link rel="stylesheet" href="estilo.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enigma Final – Acesso ao Cofre</title>
+    <link rel="stylesheet" href="enigma-final.css" />
 </head>
 <body class="enigma-body">
-  <div class="container">
-    <header class="header">
-      <h1>⚡ ENIGMA FINAL</h1>
-      <p class="mission">Cofre Central do Sistema</p>
-    </header>
+    <div class="container">
+        <header class="header">
+            <h1>⚡ ENIGMA FINAL</h1>
+            <p class="mission">Acesso ao Cofre Central</p>
+        </header>
 
-    <main>
-      <section id="password-screen" class="password-screen">
-        <div class="terminal-box">
-          <p class="terminal-text">SISTEMA: Digite as 3 senhas decodificadas</p>
-          <p class="terminal-text">FORMATO: PALAVRA1 PALAVRA2 PALAVRA3</p>
+        <div class="password-screen">
+            <div class="terminal-box">
+                <p class="terminal-text">SISTEMA: Digite a senha revelada pelo cartão do seu grupo.</p>
+                <p class="terminal-text">FORMATO: UMA PALAVRA</p>
 
-          <div class="password-inputs">
-            <div class="input-group">
-              <label for="senha1">🔴 Codificação 1:</label>
-              <input type="text" id="senha1" aria-label="senha1" placeholder="Digite a senha 1" />
+                <div class="password-inputs">
+                    <div class="input-group">
+                        <label>🔑 Senha Final do Cartão:</label>
+                        <input type="text" id="senha-final" placeholder="Digite sua senha..." maxlength="30" />
+                    </div>
+                </div>
+
+                <button id="btn-unlock" class="btn-unlock">DESBLOQUEAR ACESSO</button>
+                <div id="error-message" class="error-message" style="display:none"></div>
             </div>
-
-            <div class="input-group">
-              <label for="senha2">🔵 Codificação 2:</label>
-              <input type="text" id="senha2" aria-label="senha2" placeholder="Digite a senha 2" />
-            </div>
-
-            <div class="input-group">
-              <label for="senha3">🟢 Codificação 3:</label>
-              <input type="text" id="senha3" aria-label="senha3" placeholder="Digite a senha 3" />
-            </div>
-          </div>
-
-          <button id="btn-unlock" class="btn-unlock" type="button">DESBLOQUEAR COFRE</button>
-
-          <div id="error-message" class="error-message" style="display:none"></div>
         </div>
-      </section>
-    </main>
+    </div>
 
-  </div>
-
-  <script src="enigma-final.js" defer></script>
+    <script src="enigma-final.js" defer></script>
 </body>
 </html>
-
