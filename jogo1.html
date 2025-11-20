@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Quest - Pergunta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="jogo1-body">
+    <div class="container">
+        <div class="header">
+            <h1>🎲 DEBUG QUEST</h1>
+            <p class="mission">Labirinto dos Fundamentos</p>
+        </div>
+        
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Carregando desafio...</p>
+        </div>
+        
+        <div id="question-container" class="question-container" style="display: none;">
+            <div class="difficulty-badge" id="difficulty-badge"></div>
+            
+            <div class="question-box">
+                <h2 id="question-text"></h2>
+            </div>
+            
+            <div class="alternatives" id="alternatives-container"></div>
+            
+            <div class="timer-container">
+                <p>⏱️ Tempo restante: <span id="timer">30</span>s</p>
+            </div>
+        </div>
+        
+        <div id="result-container" class="result-container" style="display: none;">
+            <div id="result-content"></div>
+            <button onclick="window.close()" class="btn-close">Fechar e Voltar ao Jogo</button>
+        </div>
+    </div>
+    
+    <script src="script-jogo1.js"></script>
+</body>
+</html>
