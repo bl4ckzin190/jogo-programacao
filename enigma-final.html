@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enigma Final - CipherCode</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="enigma-body">
+    <div class="container">
+        <div class="header">
+            <h1>⚡ ENIGMA FINAL</h1>
+            <p class="mission">Cofre Central do Sistema</p>
+        </div>
+        
+        <div id="password-screen" class="password-screen">
+            <div class="terminal-box">
+                <p class="terminal-text">SISTEMA: Digite as 3 senhas decodificadas</p>
+                <p class="terminal-text">FORMATO: PALAVRA1 PALAVRA2 PALAVRA3</p>
+                
+                <div class="password-inputs">
+                    <div class="input-group">
+                        <label>🔴 Codificação 1:</label>
+                        <input type="text" id="senha1" placeholder="Digite a senha 1" maxlength="20">
+                    </div>
+                    <div class="input-group">
+                        <label>🔵 Codificação 2:</label>
+                        <input type="text" id="senha2" placeholder="Digite a senha 2" maxlength="20">
+                    </div>
+                    <div class="input-group">
+                        <label>🟢 Codificação 3:</label>
+                        <input type="text" id="senha3" placeholder="Digite a senha 3" maxlength="20">
+                    </div>
+                </div>
+                
+                <button onclick="verificarSenhas()" class="btn-unlock">DESBLOQUEAR COFRE</button>
+                
+                <div id="error-message" class="error-message" style="display: none;"></div>
+            </div>
+        </div>
+        
+        <div id="enigma-screen" class="enigma-screen" style="display: none;">
+            <div class="timer-display">
+                <h2>TEMPO: <span id="timer-display">00:00</span></h2>
+            </div>
+            
+            <div class="enigma-box">
+                <h2>PROTOCOLO PERDIDO - SEQUÊNCIA LÓGICA</h2>
+                <p class="enigma-description">Complete a sequência de Fibonacci:</p>
+                
+                <div class="sequence">
+                    <span class="seq-item">0</span>
+                    <span class="seq-item">1</span>
+                    <span class="seq-item">1</span>
+                    <span class="seq-item">2</span>
+                    <span class="seq-item">3</span>
+                    <span class="seq-item">5</span>
+                    <span class="seq-item">8</span>
+                    <input type="number" id="answer1" class="seq-input" placeholder="?">
+                    <input type="number" id="answer2" class="seq-input" placeholder="?">
+                    <input type="number" id="answer3" class="seq-input" placeholder="?">
+                </div>
+                
+                <button onclick="verificarEnigma()" class="btn-solve">FINALIZAR MISSÃO</button>
+            </div>
+        </div>
+        
+        <div id="victory-screen" class="victory-screen" style="display: none;">
+            <div class="victory-content">
+                <h1 class="victory-title">🎉 MISSÃO CUMPRIDA! 🎉</h1>
+                <p class="victory-message">Você restaurou o Protocolo Perdido!</p>
+                <div class="final-time">
+                    <h2>TEMPO TOTAL: <span id="final-time">00:00</span></h2>
+                </div>
+                <p class="victory-subtitle">O Sistema Central foi purificado.</p>
+                <p class="victory-subtitle">Parabéns, Operador Digital!</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script-enigma.js"></script>
+</body>
+</html>
