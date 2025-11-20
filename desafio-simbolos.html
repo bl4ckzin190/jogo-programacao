@@ -1,35 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Enigma dos Símbolos</title>
-    <link rel="stylesheet" href="desafio-simbolos.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio dos Símbolos - CipherCode</title>
+    <link rel="stylesheet" href="desafio-simbolos.css">
 </head>
-<body class="symbol-body">
+
+<body class="simbolos-body">
+
     <div class="container">
-        <header class="header">
-            <h1>🔐 ENIGMA DOS SÍMBOLOS</h1>
-            <p>Decodifique a frase antes que o tempo acabe.</p>
-        </header>
 
+        <div class="header">
+            <h1>🧬 DESAFIO DOS SÍMBOLOS</h1>
+            <p class="subtitle">Decodifique a mensagem secreta antes que o sistema expire.</p>
+        </div>
+
+        <!-- Timer -->
         <div class="timer-box">
-            <h2>TEMPO RESTANTE: <span id="timer">20:00</span></h2>
+            <span>TEMPO RESTANTE:</span>
+            <span id="timer-display" class="timer">20:00</span>
         </div>
 
-        <div class="cipher-box">
-            <h3>FRASE CODIFICADA:</h3>
-            <p class="cipher-text">▲ ❝ ; ◼ ▷ ❝ ▲ ; ⌘ ▣ ; ▶ " ▲</p>
+        <!-- Mensagem codificada -->
+        <div class="codigo-box">
+            <h2>MENSAGEM CODIFICADA</h2>
+
+            <p class="codigo">
+                ✦ ◯ ✦ ◯ &nbsp;&nbsp;&nbsp; ▲ ✧ &nbsp;&nbsp;&nbsp; ◇ ⌘ ▣ ◇ ◆ ▼ ◇
+            </p>
         </div>
 
-        <div class="answer-box">
-            <label for="resposta">Digite a frase decodificada:</label>
-            <textarea id="resposta" placeholder="Sua resposta..." maxlength="200"></textarea>
-        </div>
+        <!-- Input -->
+        <div class="resposta-box">
+            <h3>Digite a frase decodificada:</h3>
 
-        <button onclick="finalizarDesafio()">ENVIAR RESPOSTA</button>
+            <input 
+                type="text" 
+                id="resposta" 
+                class="resposta-input" 
+                placeholder="Exemplo: xoxo te aguarda"
+            >
+
+            <!-- Mensagem de erro -->
+            <div id="erro" class="erro" style="display: none;">
+                ❌ Resposta incorreta! Tente novamente.
+            </div>
+
+            <button id="btn-enviar" class="btn-enviar">
+                ENVIAR RESPOSTA
+            </button>
+        </div>
     </div>
 
+    <!-- JS -->
     <script src="desafio-simbolos.js" defer></script>
 </body>
 </html>
