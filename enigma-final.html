@@ -13,6 +13,7 @@
             <p class="mission">Cofre Central do Sistema</p>
         </div>
         
+        <!-- TELA DAS SENHAS -->
         <div id="password-screen" class="password-screen">
             <div class="terminal-box">
                 <p class="terminal-text">SISTEMA: Digite as 3 senhas decodificadas</p>
@@ -21,15 +22,15 @@
                 <div class="password-inputs">
                     <div class="input-group">
                         <label>🔴 Codificação 1:</label>
-                        <input type="text" id="senha1" placeholder="Digite a senha 1" maxlength="20">
+                        <input type="text" id="senha1" placeholder="Digite a senha 1">
                     </div>
                     <div class="input-group">
                         <label>🔵 Codificação 2:</label>
-                        <input type="text" id="senha2" placeholder="Digite a senha 2" maxlength="20">
+                        <input type="text" id="senha2" placeholder="Digite a senha 2">
                     </div>
                     <div class="input-group">
                         <label>🟢 Codificação 3:</label>
-                        <input type="text" id="senha3" placeholder="Digite a senha 3" maxlength="20">
+                        <input type="text" id="senha3" placeholder="Digite a senha 3">
                     </div>
                 </div>
                 
@@ -39,6 +40,7 @@
             </div>
         </div>
         
+        <!-- TELA DO ENIGMA -->
         <div id="enigma-screen" class="enigma-screen" style="display: none;">
             <div class="timer-display">
                 <h2>TEMPO: <span id="timer-display">00:00</span></h2>
@@ -60,11 +62,16 @@
                     <input type="number" id="answer2" class="seq-input" placeholder="?">
                     <input type="number" id="answer3" class="seq-input" placeholder="?">
                 </div>
+
+                <div id="enigma-error" class="enigma-error" style="display:none;">
+                    ❌ Resposta incorreta! Verifique a lógica da sequência.
+                </div>
                 
                 <button onclick="verificarEnigma()" class="btn-solve">FINALIZAR MISSÃO</button>
             </div>
         </div>
         
+        <!-- TELA FINAL -->
         <div id="victory-screen" class="victory-screen" style="display: none;">
             <div class="victory-content">
                 <h1 class="victory-title">🎉 MISSÃO CUMPRIDA! 🎉</h1>
@@ -81,3 +88,4 @@
     <script src="roteiro-enigma.js"></script>
 </body>
 </html>
+
