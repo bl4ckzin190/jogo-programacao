@@ -1,52 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ranking Global</title>
-    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="ranking.css" />
 </head>
-
-<body class="enigma-body">
-
+<body class="ranking-body">
     <div class="container">
-        <h1>🏆 RANKING GLOBAL</h1>
+        <header class="header">
+            <h1>🏆 RANKING GLOBAL</h1>
+            <p>Veja como você se saiu no enigma!</p>
+        </header>
 
-        <table class="ranking-table">
-            <thead>
-                <tr>
-                    <th>Posição</th>
-                    <th>Nome</th>
-                    <th>Tempo</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody id="ranking-body"></tbody>
-        </table>
+        <div class="resultado-box">
+            <h2>Seu Resultado:</h2>
+            <p><strong>Resposta enviada:</strong> <span id="resposta-usuario"></span></p>
+            <p><strong>Tempo:</strong> <span id="tempo-usuario"></span></p>
+            <p><strong>Status:</strong> <span id="status-usuario"></span></p>
+        </div>
 
-        <button class="btn-solve" onclick="location.href='enigma-final.html'">Jogar de Novo</button>
+        <div class="ranking-box">
+            <h2>🌐 Ranking Geral</h2>
+            <p>Digite seu nome para registrar no ranking:</p>
+
+            <input type="text" id="nome" placeholder="Seu nome..." maxlength="20" />
+            <button id="btn-salvar" class="btn-save">SALVAR NO RANKING</button>
+
+            <ul id="lista-ranking" class="ranking-list"></ul>
+        </div>
     </div>
 
-    <script>
-        function formatarTempo(seg) {
-            const m = String(Math.floor(seg / 60)).padStart(2, "0");
-            const s = String(seg % 60).padStart(2, "0");
-            return `${m}:${s}`;
-        }
-
-        const ranking = JSON.parse(localStorage.getItem("rankingGlobal")) || [];
-        const tbody = document.getElementById("ranking-body");
-
-        ranking.forEach((item, index) => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${item.nome}</td>
-                <td>${formatarTempo(item.tempo)}</td>
-                <td>${item.status}</td>
-            `;
-            tbody.appendChild(row);
-        });
-    </script>
-
+    <script src="ranking.js" defer></script>
 </body>
 </html>
