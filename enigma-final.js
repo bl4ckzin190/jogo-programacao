@@ -1,55 +1,52 @@
-// enigma-final.js
-// Lógica para o enigma final com símbolos e timer de 20 minutos
+// Lista de senhas válidas (uma de cada cartão)
+const senhasValidas = [
+  "aurora",
+  "neon",
+  "circuito",
+  "vector",
+  "atlas",
+  "sigma"
+];
 
-let tempo = 20 * 60; // 20 minutos em segundos
-let intervalo;
-
-// Inicia o timer
-function iniciarTimer() {
-    const timerElemento = document.getElementById('timer');
-
-    intervalo = setInterval(() => {
-        let minutos = Math.floor(tempo / 60);
-        let segundos = tempo % 60;
-
-        if (segundos < 10) segundos = '0' + segundos;
-
-        timerElemento.textContent = `${minutos}:${segundos}`;
-
-        if (tempo <= 0) {
-            clearInterval(intervalo);
-            enviarResposta(true);
-        }
-
-        tempo--;
-    }, 1000);
+// Normaliza: remove acentos, espaços extras e deixa minúsculo
+function normalizar(str = "") {
+  return String(str)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
 }
 
-// Envia a resposta para o ranking
-function enviarResposta(expirou = false) {
-    const nome = localStorage.getItem('nomeJogador') || 'Jogador Anônimo';
-    const tempoFinal = 20 * 60 - tempo;
-    const resposta = document.getElementById('resposta').value.trim();
-
-    const dados = JSON.parse(localStorage.getItem('rankingGlobal') || '[]');
-
-    dados.push({
-        nome: nome,
-        tempo: tempoFinal,
-        expirou: expirou,
-        resposta: resposta
-    });
-
-    localStorage.setItem('rankingGlobal', JSON.stringify(dados));
-
-    window.location.href = 'ranking.html';
+// Mensagem de erro
+function mostrarErro(msg) {
+  const el = document.getElementById("error-message");
+  el.innerHTML = msg;
+  el.style.display = "block";
+  el.style.animation = "shake 0.4s";
+  setTimeout(() => (el.style.animation = ""), 400);
 }
 
-// Evento do botão
-function verificarResposta() {
-    enviarResposta(false);
+function esconderErro() {
+  document.getElementById("error-message").style.display = "none";
 }
 
-window.onload = () => {
-    iniciarTimer();
-};
+// Verificar senha
+function verificarSenha() {
+  const senhaDigitada = normalizar(document.getElementById("senha-final").value);
+
+  if (!senhaDigitada) {
+    mostrarErro("⚠️ Digite a senha para continuar!");
+    return;
+  }
+
+  const acertou = senhasValidas.includes(senhaDigitada);
+
+  if (acertou) {
+    esconderErro();
+    setTimeout(() => {
+      window.location.href = "desafio-simbolos.html";
+    }, 300);
+  } else {
+    mostrarErro(`
+      ❌ Senha incorreta!<br>
+      Verif
