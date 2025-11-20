@@ -1,0 +1,78 @@
+{
+  "codificacao1": [
+    {
+      "id": 1,
+      "pergunta": "Qual comando Git salva alterações localmente?",
+      "alternativas": ["git push", "git commit", "git add", "git pull"],
+      "resposta_correta": 1,
+      "simbolo_revelado": {"letra": "C", "emoji": "🔴"}
+    },
+    {
+      "id": 2,
+      "pergunta": "O que é SQL?",
+      "alternativas": [
+        "Uma linguagem de programação web",
+        "Uma linguagem para banco de dados",
+        "Um framework JavaScript",
+        "Um sistema operacional"
+      ],
+      "resposta_correta": 1,
+      "simbolo_revelado": {"letra": "O", "emoji": "⭐"}
+    },
+    {
+      "id": 3,
+      "pergunta": "O que significa API?",
+      "alternativas": [
+        "Application Programming Interface",
+        "Advanced Program Integration",
+        "Automated Programming Instruction",
+        "Application Process Implementation"
+      ],
+      "resposta_correta": 0,
+      "simbolo_revelado": {"letra": "D", "emoji": "🌟"}
+    }
+  ],
+  "codificacao2": [
+    {
+      "id": 1,
+      "pergunta": "Qual estrutura de dados segue LIFO?",
+      "alternativas": ["Fila", "Pilha", "Array", "Lista"],
+      "resposta_correta": 1,
+      "simbolo_revelado": {"letra": "H", "emoji": "💎"}
+    },
+    {
+      "id": 2,
+      "pergunta": "O que é um loop infinito?",
+      "alternativas": [
+        "Um erro de sintaxe",
+        "Um loop que nunca termina",
+        "Um tipo de função",
+        "Uma variável global"
+      ],
+      "resposta_correta": 1,
+      "simbolo_revelado": {"letra": "A", "emoji": "🔷"}
+    }
+  ],
+  "codificacao3": [
+    {
+      "id": 1,
+      "pergunta": "O que é OOP?",
+      "alternativas": [
+        "Online Operating Program",
+        "Object-Oriented Programming",
+        "Original Output Protocol",
+        "Optimized Operation Process"
+      ],
+      "resposta_correta": 1,
+      "simbolo_revelado": {"letra": "B", "emoji": "🟢"}
+    }
+  ],
+  "frases_codificadas": {
+    "frase1_cod1": "CODIGO",
+    "frase2_cod1": "DEBUG",
+    "frase1_cod2": "HACKER",
+    "frase2_cod2": "SISTEMA",
+    "frase1_cod3": "BUG",
+    "frase2_cod3": "BYTE"
+  }
+}
