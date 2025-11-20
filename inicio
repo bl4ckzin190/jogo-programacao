@@ -1,0 +1,10 @@
+jogo-programacao-multimidia/
+│
+├── index.html (página inicial)
+├── jogo1.html (perguntas do Jogo 1)
+├── jogo2.html (perguntas do Jogo 2)
+├── enigma-final.html (enigma do Jogo 2)
+├── style.css (estilos visuais)
+├── questoes-jogo1.json (banco de perguntas Jogo 1)
+├── questoes-jogo2.json (banco de perguntas Jogo 2)
+└── script.js (lógica do sistema)
