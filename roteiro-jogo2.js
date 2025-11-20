@@ -1,6 +1,10 @@
-let questoes = [];
+let questoes = {};
 let questaoAtual = null;
 let codificacaoEscolhida = null;
+
+// Verificar se é card bônus
+const urlParams = new URLSearchParams(window.location.search);
+const isBonus = urlParams.get('bonus') === 'true';
 
 // Carregar questões do JSON
 async function carregarQuestoes() {
@@ -8,13 +12,23 @@ async function carregarQuestoes() {
         const response = await fetch('questoes-jogo2.json');
         const data = await response.json();
         questoes = data;
+        
+        console.log('Questões carregadas:', questoes);
+        
+        // Se for bônus, mostrar direto
+        if (isBonus) {
+            mostrarBonus();
+        }
     } catch (error) {
+        console.error('Erro ao carregar questões:', error);
         alert('Erro ao carregar questões: ' + error.message);
     }
 }
 
 // Selecionar codificação (cor do botão)
 function selectCoding(numero) {
+    console.log('Codificação selecionada:', numero);
+    
     codificacaoEscolhida = numero;
     
     const tiposCodificacao = {
@@ -34,6 +48,8 @@ function selectCoding(numero) {
     // Selecionar pergunta aleatória
     const indiceAleatorio = Math.floor(Math.random() * questoesDoCodigo.length);
     questaoAtual = questoesDoCodigo[indiceAleatorio];
+    
+    console.log('Pergunta selecionada:', questaoAtual);
     
     mostrarQuestao();
 }
@@ -66,13 +82,18 @@ function mostrarQuestao() {
         const button = document.createElement('button');
         button.className = 'alternative-btn';
         button.textContent = `${String.fromCharCode(65 + index)}) ${alt}`;
-        button.onclick = () => verificarResposta(index);
+        button.onclick = function() {
+            verificarResposta(index);
+        };
         container.appendChild(button);
     });
 }
 
 // Verificar resposta (só 1 tentativa!)
 function verificarResposta(indiceEscolhido) {
+    console.log('Resposta escolhida:', indiceEscolhido);
+    console.log('Resposta correta:', questaoAtual.resposta_correta);
+    
     const acertou = indiceEscolhido === questaoAtual.resposta_correta;
     mostrarResultado(acertou);
 }
@@ -115,11 +136,54 @@ function mostrarResultado(acertou) {
                     <p class="bug-code">CONNECTION_FAILED</p>
                 </div>
                 <p class="consequence">❌ NENHUM SÍMBOLO REVELADO</p>
-                <p class="hint">💡 Tente outro card de pergunta!
-</div>
+                <p class="hint">💡 Tente outro card de pergunta!</p>
+            </div>
         `;
     }
 }
 
+// Sistema de bônus
+function mostrarBonus() {
+    const codigos = ['codificacao1', 'codificacao2', 'codificacao3'];
+    const codigoAleatorio = codigos[Math.floor(Math.random() * codigos.length)];
+    
+    const questoesCodigo = questoes[codigoAleatorio];
+    
+    if (!questoesCodigo || questoesCodigo.length === 0) {
+        alert('Erro ao carregar bônus!');
+        return;
+    }
+    
+    const questaoAleatoria = questoesCodigo[Math.floor(Math.random() * questoesCodigo.length)];
+    
+    document.getElementById('color-selection').style.display = 'none';
+    document.getElementById('question-container').style.display = 'none';
+    document.getElementById('result-container').style.display = 'block';
+    
+    const simbolo = questaoAleatoria.simbolo_revelado;
+    const cores = {
+        'codificacao1': {nome: 'CODIFICAÇÃO 1', emoji: '🔴'},
+        'codificacao2': {nome: 'CODIFICAÇÃO 2', emoji: '🔵'},
+        'codificacao3': {nome: 'CODIFICAÇÃO 3', emoji: '🟢'}
+    };
+    const cor = cores[codigoAleatorio];
+    
+    document.getElementById('result-content').innerHTML = `
+        <div class="result-box success-decode">
+            <h2>⭐ BÔNUS ATIVADO! ⭐</h2>
+            <p class="result-message">Você ganhou um símbolo gratuito!</p>
+            <div class="symbol-revealed">
+                <h3>${cor.emoji} ${cor.nome}</h3>
+                <div class="symbol-box">
+                    <span class="symbol-letter">${simbolo.letra}</span>
+                    <span class="symbol-equals">=</span>
+                    <span class="symbol-emoji">${simbolo.emoji}</span>
+                </div>
+            </div>
+            <p class="decode-instruction">📝 ANOTE NA SUA FOLHA!</p>
+        </div>
+    `;
+}
+
 // Iniciar quando página carregar
-window.onload = carregarQuestoes;
+window.addEventListener('DOMContentLoaded', carregarQuestoes);
