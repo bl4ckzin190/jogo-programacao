@@ -1,11 +1,12 @@
 // Pegar parâmetros da URL
 const urlParams = new URLSearchParams(window.location.search);
-const difficulty = urlParams.get('dif') || 'faceis'; // faceis, medias, dificeis
+const difficulty = urlParams.get('dif') || 'faceis';
 
 let questoes = [];
 let questaoAtual = null;
 let timerInterval;
 let timeLeft = 30;
+let jaRespondeu = false;
 
 // Carregar questões do JSON
 async function carregarQuestoes() {
@@ -15,14 +16,16 @@ async function carregarQuestoes() {
         questoes = data[difficulty];
         
         if (!questoes || questoes.length === 0) {
-            throw new Error('Nenhuma questão encontrada');
+            throw new Error('Nenhuma questão encontrada para esta dificuldade');
         }
         
         selecionarQuestaoAleatoria();
     } catch (error) {
+        console.error('Erro ao carregar questões:', error);
         document.getElementById('loading').innerHTML = `
             <p style="color: red;">❌ Erro ao carregar questões!</p>
             <p>${error.message}</p>
+            <p>Verifique se o arquivo questoes-jogo1.json existe e está correto.</p>
         `;
     }
 }
@@ -41,7 +44,12 @@ function mostrarQuestao() {
     
     // Badge de dificuldade
     const badge = document.getElementById('difficulty-badge');
-    badge.textContent = difficulty.toUpperCase();
+    const difficultyNames = {
+        'faceis': 'FÁCIL',
+        'medias': 'MÉDIA',
+        'dificeis': 'DIFÍCIL'
+    };
+    badge.textContent = difficultyNames[difficulty] || difficulty.toUpperCase();
     badge.className = `difficulty-badge ${difficulty}`;
     
     // Texto da pergunta
@@ -55,7 +63,9 @@ function mostrarQuestao() {
         const button = document.createElement('button');
         button.className = 'alternative-btn';
         button.textContent = `${String.fromCharCode(65 + index)}) ${alt}`;
-        button.onclick = () => verificarResposta(index);
+        button.onclick = function() {
+            verificarResposta(index);
+        };
         container.appendChild(button);
     });
     
@@ -66,6 +76,7 @@ function mostrarQuestao() {
 // Timer de 30 segundos
 function iniciarTimer() {
     timeLeft = 30;
+    jaRespondeu = false;
     document.getElementById('timer').textContent = timeLeft;
     
     timerInterval = setInterval(() => {
@@ -74,13 +85,18 @@ function iniciarTimer() {
         
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
-            mostrarResultado(false, true); // timeout
+            if (!jaRespondeu) {
+                mostrarResultado(false, true);
+            }
         }
     }, 1000);
 }
 
 // Verificar resposta
 function verificarResposta(indiceEscolhido) {
+    if (jaRespondeu) return;
+    
+    jaRespondeu = true;
     clearInterval(timerInterval);
     
     const acertou = indiceEscolhido === questaoAtual.resposta_correta;
@@ -122,4 +138,4 @@ function mostrarResultado(acertou, timeout) {
 }
 
 // Iniciar quando página carregar
-window.onload = carregarQuestoes;
+window.addEventListener('DOMContentLoaded', carregarQuestoes);
