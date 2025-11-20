@@ -1,6 +1,6 @@
 // 🟩 SENHAS CERTAS DO ENIGMA
-const senhaCorreta1 = "vento";
-const senhaCorreta2 = "folha";
+const senhaCorreta1 = "xoxo o capenga";
+const senhaCorreta2 = "satanas e voce";
 
 // 🔍 Função que confere as duas senhas
 function conferirSenhas() {
