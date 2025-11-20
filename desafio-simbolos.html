@@ -1,73 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Enigma Final – Código</title>
-    <link rel="stylesheet" href="estilo.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enigma dos Símbolos</title>
+    <link rel="stylesheet" href="desafio-simbolos.css" />
 </head>
-
-<body class="enigma-body">
-
+<body class="symbol-body">
     <div class="container">
-        <h1>🔐 ENIGMA FINAL – DECODIFIQUE</h1>
+        <header class="header">
+            <h1>🔐 ENIGMA DOS SÍMBOLOS</h1>
+            <p>Decodifique a frase antes que o tempo acabe.</p>
+        </header>
 
-        <div id="timer" class="timer-display">20:00</div>
+        <div class="timer-box">
+            <h2>TEMPO RESTANTE: <span id="timer">20:00</span></h2>
+        </div>
 
-        <p class="coded-text">
-            ▲ ; " △ ⌘ « ■ ; ▲ " ⟡
-        </p>
+        <div class="cipher-box">
+            <h3>FRASE CODIFICADA:</h3>
+            <p class="cipher-text">▲ ❝ ; ◼ ▷ ❝ ▲ ; ⌘ ▣ ; ▶ " ▲</p>
+        </div>
 
-        <p class="instructions">Digite a frase decodificada:</p>
-        <input id="resposta" type="text" placeholder="Sua resposta...">
+        <div class="answer-box">
+            <label for="resposta">Digite a frase decodificada:</label>
+            <textarea id="resposta" placeholder="Sua resposta..." maxlength="200"></textarea>
+        </div>
 
-        <button class="btn-solve" onclick="finalizarEnigma()">ENVIAR RESPOSTA</button>
+        <button id="btn-enviar" class="btn-send">ENVIAR RESPOSTA</button>
     </div>
 
-    <script>
-        const respostaCorreta = "a verdade esta oculta";
-
-        let tempoRestante = 20 * 60;
-        const timerElement = document.getElementById("timer");
-
-        const cronometro = setInterval(() => {
-            const m = String(Math.floor(tempoRestante / 60)).padStart(2, "0");
-            const s = String(tempoRestante % 60).padStart(2, "0");
-
-            timerElement.innerText = `${m}:${s}`;
-            tempoRestante--;
-
-            if (tempoRestante < 0) {
-                clearInterval(cronometro);
-                salvarResultado(false);
-            }
-        }, 1000);
-
-        function finalizarEnigma() {
-            const resposta = document.getElementById("resposta").value.trim().toLowerCase();
-            const correta = resposta === respostaCorreta;
-
-            clearInterval(cronometro);
-            salvarResultado(correta);
-        }
-
-        function salvarResultado(acertou) {
-            const nome = prompt("Digite seu nome para o ranking:") || "Jogador";
-
-            const ranking = JSON.parse(localStorage.getItem("rankingGlobal")) || [];
-
-            ranking.push({
-                nome,
-                tempo: 1200 - tempoRestante,
-                status: acertou ? "✔ Acertou" : "✖ Erro/Tempo"
-            });
-
-            ranking.sort((a, b) => a.tempo - b.tempo);
-
-            localStorage.setItem("rankingGlobal", JSON.stringify(ranking));
-
-            window.location.href = "ranking.html";
-        }
-    </script>
-
+    <script src="desafio-simbolos.js" defer></script>
 </body>
 </html>
