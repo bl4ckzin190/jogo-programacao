@@ -17,7 +17,7 @@ function conferirSenhas() {
             window.location.href = "enigma-final.html";
         }, 1500);
 
-        return;
+        return; 
     }
 
     // Mensagem de erro personalizada
