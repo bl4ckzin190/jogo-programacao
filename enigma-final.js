@@ -39,6 +39,27 @@ function verificarSenha() {
     return;
   }
 
+  function verificarSenhas() {
+    const senhasValidas = [
+        "crimsonfox",
+        "digitalblade",
+        "redcipher",
+        "starencode",
+        "nightfox",
+        "safecode"
+    ];
+
+    const input = document.getElementById("senha").value.trim().toLowerCase();
+
+    if (senhasValidas.includes(input)) {
+        window.location.href = "desafio-simbolos.html"; // 👉 redireciona para página 2
+    } else {
+        document.getElementById("erro").innerText = "Senha incorreta!";
+        document.getElementById("erro").style.display = "block";
+    }
+}
+
+
   const acertou = senhasValidas.includes(senhaDigitada);
 
   if (acertou) {
