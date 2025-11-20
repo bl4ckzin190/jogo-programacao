@@ -16,6 +16,11 @@ function atualizarTimer() {
         tempoRestante--;
         setTimeout(atualizarTimer, 1000);
     }
+    function finalizarDesafio() {
+    // aqui você pode validar ou não a resposta
+    window.location.href = "ranking.html"; // 👉 redireciona para a página 3
+}
+
 }
 
 atualizarTimer();
