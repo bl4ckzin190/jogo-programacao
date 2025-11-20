@@ -1,45 +1,118 @@
-// ------------------------------
-// TIMER DE 20 MINUTOS
-// ------------------------------
-let tempoRestante = 20 * 60; // 20 minutos em segundos
-const timerEl = document.getElementById("timer");
+/* ============================
+   CONFIGURAÇÕES DO ENIGMA  
+============================ */
 
-function atualizarTimer() {
-    let minutos = Math.floor(tempoRestante / 60);
-    let segundos = tempoRestante % 60;
+const respostaCorreta = "xoxo te aguarda"; // resposta final da frase codificada
 
-    timerEl.textContent = `${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
+let tempoRestante = 20 * 60; // 20 minutos em segundos (1200)
+let timerInterval = null;
 
-    if (tempoRestante <= 0) {
-        finalizarEnigma(true);
-    } else {
+/* ============================
+   NORMALIZAR TEXTO
+============================ */
+
+function normalizar(str = "") {
+    return String(str)
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "") // remove acentos
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, " "); // normaliza espaços múltiplos
+}
+
+/* ============================
+   INICIAR TIMER
+============================ */
+
+function iniciarTimer() {
+    const timerDisplay = document.getElementById("timer-display");
+
+    timerInterval = setInterval(() => {
         tempoRestante--;
-        setTimeout(atualizarTimer, 1000);
+
+        let minutos = Math.floor(tempoRestante / 60);
+        let segundos = tempoRestante % 60;
+
+        timerDisplay.textContent =
+            String(minutos).padStart(2, "0") + ":" +
+            String(segundos).padStart(2, "0");
+
+        if (tempoRestante <= 0) {
+            clearInterval(timerInterval);
+            salvarResultado(false); // tempo acabou → derrota
+        }
+
+    }, 1000);
+}
+
+/* ============================
+   VERIFICAR RESPOSTA
+============================ */
+
+function verificarResposta() {
+    const respostaJogador = normalizar(
+        document.getElementById("resposta").value
+    );
+
+    if (respostaJogador === normalizar(respostaCorreta)) {
+        clearInterval(timerInterval);
+        salvarResultado(true);
+    } else {
+        mostrarErro();
     }
-    function finalizarDesafio() {
-    // aqui você pode validar ou não a resposta
-    window.location.href = "ranking.html"; // 👉 redireciona para a página 3
 }
 
+/* ============================
+   MOSTRAR ERRO VISUAL
+============================ */
+
+function mostrarErro() {
+    const box = document.getElementById("erro");
+    box.style.display = "block";
+    box.style.animation = "shake 0.4s";
+
+    setTimeout(() => {
+        box.style.animation = "";
+    }, 400);
 }
 
-atualizarTimer();
+/* ============================
+   SALVAR RESULTADO E IR PARA O RANKING
+============================ */
 
-// ------------------------------
-// ENVIO DA RESPOSTA
-// ------------------------------
-const botaoEnviar = document.getElementById("btn-enviar");
-botaoEnviar.addEventListener("click", () => finalizarEnigma(false));
+function salvarResultado(acertou) {
+    let nome = prompt("Insira seu nome para o ranking:");
 
-function finalizarEnigma(porTempoEsgotado) {
-    const resposta = document.getElementById("resposta").value.trim();
-    const tempoFinal = timerEl.textContent;
+    if (!nome || nome.trim() === "") {
+        nome = "Jogador Desconhecido";
+    }
 
-    // Salvar localmente para usar na página de ranking
-    localStorage.setItem("resposta_usuario", resposta);
-    localStorage.setItem("tempo_usuario", tempoFinal);
-    localStorage.setItem("tempo_esgotado", porTempoEsgotado ? "sim" : "nao");
+    const tempoUsado = (20 * 60) - tempoRestante;
 
-    // Redirecionar para o ranking
+    const dados = {
+        nome: nome.trim(),
+        tempo: acertou ? tempoUsado : null,
+        status: acertou ? "✔ Acertou" : "✘ Tempo Esgotado"
+    };
+
+    // salva no localStorage (um array)
+    let ranking = JSON.parse(localStorage.getItem("ranking-simbolos") || "[]");
+    ranking.push(dados);
+
+    // salvar de volta
+    localStorage.setItem("ranking-simbolos", JSON.stringify(ranking));
+
+    // ir para ranking
     window.location.href = "ranking.html";
 }
+
+/* ============================
+   INICIAR AUTOMATICAMENTE
+============================ */
+
+window.onload = () => {
+    iniciarTimer();
+
+    document.getElementById("btn-enviar")
+        .addEventListener("click", verificarResposta);
+};
