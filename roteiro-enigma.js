@@ -12,8 +12,12 @@ function conferirSenhas() {
     // Se ambos estiverem certos
     if (s1 === senhaCorreta1 && s2 === senhaCorreta2) {
         msg.style.color = "#2bff73";
-        msg.innerText = "✔ Senhas corretas! Enigma concluído!";
-        botaoRefazer.style.display = "block";
+        msg.innerText = "✔ Senhas corretas! Redirecionando...";
+
+        setTimeout(() => {
+            window.location.href = "enigma-final.html";
+        }, 1500);
+
         return;
     }
 
