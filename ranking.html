@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Ranking Global</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body class="enigma-body">
+
+    <div class="container">
+        <h1>🏆 RANKING GLOBAL</h1>
+
+        <table class="ranking-table">
+            <thead>
+                <tr>
+                    <th>Posição</th>
+                    <th>Nome</th>
+                    <th>Tempo</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="ranking-body"></tbody>
+        </table>
+
+        <button class="btn-solve" onclick="location.href='enigma-final.html'">Jogar de Novo</button>
+    </div>
+
+    <script>
+        function formatarTempo(seg) {
+            const m = String(Math.floor(seg / 60)).padStart(2, "0");
+            const s = String(seg % 60).padStart(2, "0");
+            return `${m}:${s}`;
+        }
+
+        const ranking = JSON.parse(localStorage.getItem("rankingGlobal")) || [];
+        const tbody = document.getElementById("ranking-body");
+
+        ranking.forEach((item, index) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${item.nome}</td>
+                <td>${formatarTempo(item.tempo)}</td>
+                <td>${item.status}</td>
+            `;
+            tbody.appendChild(row);
+        });
+    </script>
+
+</body>
+</html>
