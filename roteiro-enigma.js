@@ -1,13 +1,12 @@
 // 🟩 SENHAS CERTAS DO ENIGMA
-const senhaCorreta1 = "xoxo o capenga";
-const senhaCorreta2 = "satanas e voce";
+const senhaCorreta1 = "xoxoocapenga";
+const senhaCorreta2 = "satanasevoce";
 
 // 🔍 Função que confere as duas senhas
 function conferirSenhas() {
     const s1 = document.getElementById("senha1").value.trim().toLowerCase();
     const s2 = document.getElementById("senha2").value.trim().toLowerCase();
     const msg = document.getElementById("mensagem");
-    const botaoRefazer = document.getElementById("refazer");
 
     // Se ambos estiverem certos
     if (s1 === senhaCorreta1 && s2 === senhaCorreta2) {
