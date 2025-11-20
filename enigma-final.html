@@ -2,58 +2,38 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enigma Final</title>
+    <title>Enigma Final – Senhas</title>
     <link rel="stylesheet" href="estilo.css">
 </head>
-<body>
 
-    <section class="container">
+<body class="enigma-body">
 
-        <h1>ENIGMA FINAL</h1>
-
-        <p class="descricao">
-            Decodifique o enigma abaixo.  
-            Cada símbolo representa uma letra.
-        </p>
-
-        <div class="bloco-simbolos">
-            <p>⬤ = A</p>
-            <p>✦ = R</p>
-            <p>◆ = M</p>
-            <p>▲ = O</p>
+    <div class="container">
+        <div class="header">
+            <h1>⚡ ENIGMA FINAL</h1>
+            <p class="mission">Cofre Central do Sistema</p>
         </div>
 
-        <p class="codigo">
-            ✦ ◆ ⬤ ▲  
-        </p>
+        <div class="terminal-box">
+            <p class="terminal-text">SISTEMA: Digite as 3 senhas decodificadas</p>
+            <p class="terminal-text">FORMATO: PALAVRA1 PALAVRA2 PALAVRA3</p>
 
-        <input type="text" id="respostaFinal" placeholder="Digite a palavra...">
+            <div class="password-inputs">
+                <div class="input-group">
+                    <label>🔴 Codificação 1:</label>
+                    <input type="text" id="senha1">
+                </div>
+                <div class="input-group">
+                    <label>🔵 Codificação 2:</label>
+                    <input type="text" id="senha2">
+                </div>
+                <div class="input-group">
+                    <label>🟢 Codificação 3:</label>
+                    <input type="text" id="senha3">
+                </div>
+            </div>
 
-        <button onclick="conferirCodigo()">CONFIRMAR</button>
+            <button onclick="verificarSenhas()" class="btn-unlock">DESBLOQUEAR COFRE</button>
+            <div id="error-message"
 
-        <p id="msgFinal" class="mensagem"></p>
-
-    </section>
-
-    <script>
-        const respostaCorreta = "armao"; // exemplo
-
-        function conferirCodigo() {
-            const r = document.getElementById("respostaFinal").value.trim().toLowerCase();
-            const msg = document.getElementById("msgFinal");
-
-            if (r === respostaCorreta) {
-                msg.style.color = "#2bff73";
-                msg.innerText = "✔ Código decifrado! Você completou todos os enigmas!";
-                return;
-            }
-
-            msg.style.color = "#ff4444";
-            msg.innerText = "❌ Código incorreto. Tente novamente.";
-        }
-    </script>
-
-</body>
-</html>
 
