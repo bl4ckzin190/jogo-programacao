@@ -1,164 +1,52 @@
-
-let timerIniciado = false;
-let timerInterval;
-let segundosDecorridos = 0;
-
-// Senhas corretas (baseadas no questoes-jogo2.json)
+// Senhas corretas
 const senhasCorretas = {
-    senha1: 'CODIGO',
-    senha2: 'HACKER',
-    senha3: 'BUG'
+    senha1: 'PROGRAMAR',
+    senha2: 'DESIGN',
+    senha3: 'FUTURO'
 };
 
 // Verificar senhas digitadas
 function verificarSenhas() {
-    const senha1 = document.getElementById('senha1').value.toUpperCase().trim();
-    const senha2 = document.getElementById('senha2').value.toUpperCase().trim();
-    const senha3 = document.getElementById('senha3').value.toUpperCase().trim();
-    
+    const normalizar = str =>
+        str.normalize("NFD")         // remove acentos
+           .replace(/[\u0300-\u036f]/g, "")
+           .toUpperCase()
+           .trim();
+
+    const senha1 = normalizar(document.getElementById('senha1').value);
+    const senha2 = normalizar(document.getElementById('senha2').value);
+    const senha3 = normalizar(document.getElementById('senha3').value);
+
     const errorMsg = document.getElementById('error-message');
-    
-    console.log('Senhas digitadas:', senha1, senha2, senha3);
-    console.log('Senhas corretas:', senhasCorretas);
-    
+
     // Verificar se todos os campos foram preenchidos
     if (!senha1 || !senha2 || !senha3) {
         errorMsg.textContent = '⚠️ Preencha todas as 3 senhas!';
         errorMsg.style.display = 'block';
         return;
     }
-    
-    // Verificar se as senhas estão corretas
-    if (senha1 === senhasCorretas.senha1 && 
-        senha2 === senhasCorretas.senha2 && 
-        senha3 === senhasCorretas.senha3) {
-        
+
+    // Verificação das senhas
+    if (
+        senha1 === senhasCorretas.senha1 &&
+        senha2 === senhasCorretas.senha2 &&
+        senha3 === senhasCorretas.senha3
+    ) {
         console.log('Senhas corretas! Desbloqueando enigma...');
+        errorMsg.style.display = 'none';
         desbloquearEnigma();
-        
     } else {
         errorMsg.innerHTML = `
             <p>❌ ACESSO NEGADO!</p>
             <p>Uma ou mais senhas estão incorretas.</p>
-            <p>Decodifique mais cards antes de tentar novamente.</p>
+            <p>Verifique os cards e tente novamente.</p>
         `;
         errorMsg.style.display = 'block';
         errorMsg.style.animation = 'shake 0.5s';
-        
+
         setTimeout(() => {
             errorMsg.style.animation = '';
         }, 500);
     }
 }
-
-// Desbloquear o enigma
-function desbloquearEnigma() {
-    document.getElementById('password-screen').style.display = 'none';
-    document.getElementById('enigma-screen').style.display = 'block';
-    iniciarTimer();
-}
-
-// Iniciar timer
-function iniciarTimer() {
-    if (timerIniciado) return;
-    timerIniciado = true;
-    segundosDecorridos = 0;
-    
-    timerInterval = setInterval(() => {
-        segundosDecorridos++;
-        atualizarDisplayTimer();
-    }, 1000);
-}
-
-// Atualizar display do timer
-function atualizarDisplayTimer() {
-    const minutos = Math.floor(segundosDecorridos / 60);
-    const segundos = segundosDecorridos % 60;
-    const display = `${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
-    document.getElementById('timer-display').textContent = display;
-}
-
-// Verificar resposta do enigma
-function verificarEnigma() {
-    const resposta1 = parseInt(document.getElementById('answer1').value);
-    const resposta2 = parseInt(document.getElementById('answer2').value);
-    const resposta3 = parseInt(document.getElementById('answer3').value);
-    
-    console.log('Respostas:', resposta1, resposta2, resposta3);
-    
-    // Respostas corretas da sequência de Fibonacci: 13, 21, 34
-    if (resposta1 === 13 && resposta2 === 21 && resposta3 === 34) {
-        clearInterval(timerInterval);
-        mostrarVitoria();
-    } else {
-        alert('❌ Sequência incorreta! Continue tentando...\n\nDica: Fibonacci - cada número é a soma dos dois anteriores.');
-    }
-}
-
-// Mostrar tela de vitória
-function mostrarVitoria() {
-    document.getElementById('enigma-screen').style.display = 'none';
-    document.getElementById('victory-screen').style.display = 'flex';
-    
-    const minutos = Math.floor(segundosDecorridos / 60);
-    const segundos = segundosDecorridos % 60;
-    const tempoFinal = `${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
-    
-    document.getElementById('final-time').textContent = tempoFinal;
-    
-    salvarRecorde(segundosDecorridos);
-    celebrarVitoria();
-}
-
-// Salvar recorde
-function salvarRecorde(tempo) {
-    try {
-        const recordeAtual = localStorage.getItem('recorde_ciphercode');
-        
-        if (!recordeAtual || tempo < parseInt(recordeAtual)) {
-            localStorage.setItem('recorde_ciphercode', tempo);
-            
-            const victoryContent = document.querySelector('.victory-content');
-            const recordeBadge = document.createElement('div');
-            recordeBadge.className = 'new-record-badge';
-            recordeBadge.innerHTML = '🏆 NOVO RECORDE! 🏆';
-            victoryContent.insertBefore(recordeBadge, victoryContent.children[2]);
-        }
-    } catch (e) {
-        console.log('LocalStorage não disponível');
-    }
-}
-
-// Animação de celebração
-function celebrarVitoria() {
-    const victoryScreen = document.getElementById('victory-screen');
-    const cores = ['#FF0040', '#00D9FF', '#39FF14', '#FFD700'];
-    
-    for (let i = 0; i < 50; i++) {
-        const confetti = document.createElement('div');
-        confetti.className = 'confetti';
-        confetti.style.left = Math.random() * 100 + '%';
-        confetti.style.animationDelay = Math.random() * 3 + 's';
-        confetti.style.backgroundColor = cores[Math.floor(Math.random() * cores.length)];
-        victoryScreen.appendChild(confetti);
-    }
-}
-
-// Carregar recorde ao iniciar
-window.addEventListener('DOMContentLoaded', function() {
-    try {
-        const recorde = localStorage.getItem('recorde_ciphercode');
-        if (recorde) {
-            const min = Math.floor(recorde / 60);
-            const seg = recorde % 60;
-            const recordeElement = document.getElementById('record-time');
-            if (recordeElement) {
-                recordeElement.textContent = `${String(min).padStart(2, '0')}:${String(seg).padStart(2, '0')}`;
-            }
-        }
-    } catch (e) {
-        console.log('LocalStorage não disponível');
-    }
-});
-
 
