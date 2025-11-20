@@ -1,0 +1,98 @@
+{
+  "faceis": [
+    {
+      "id": 1,
+      "pergunta": "O que significa HTML?",
+      "alternativas": [
+        "HyperText Markup Language",
+        "Home Tool Markup Language",
+        "Hyperlinks Text Mark Language",
+        "Hyper Tool Making Language"
+      ],
+      "resposta_correta": 0
+    },
+    {
+      "id": 2,
+      "pergunta": "Qual símbolo é usado para comentários em Python?",
+      "alternativas": ["//", "#", "/*", "<!--"],
+      "resposta_correta": 1
+    },
+    {
+      "id": 3,
+      "pergunta": "O que é uma variável em programação?",
+      "alternativas": [
+        "Um tipo de loop",
+        "Um espaço na memória para armazenar dados",
+        "Uma função especial",
+        "Um erro no código"
+      ],
+      "resposta_correta": 1
+    },
+    {
+      "id": 4,
+      "pergunta": "Qual linguagem é usada para estilizar páginas web?",
+      "alternativas": ["HTML", "CSS", "JavaScript", "Python"],
+      "resposta_correta": 1
+    },
+    {
+      "id": 5,
+      "pergunta": "O que significa 'bug' em programação?",
+      "alternativas": [
+        "Um inseto no computador",
+        "Um erro no código",
+        "Um tipo de vírus",
+        "Uma função especial"
+      ],
+      "resposta_correta": 1
+    }
+  ],
+  "medias": [
+    {
+      "id": 6,
+      "pergunta": "Qual estrutura de repetição executa pelo menos uma vez?",
+      "alternativas": ["for", "while", "do-while", "if"],
+      "resposta_correta": 2
+    },
+    {
+      "id": 7,
+      "pergunta": "O que é um array?",
+      "alternativas": [
+        "Uma função matemática",
+        "Uma coleção ordenada de elementos",
+        "Um tipo de loop",
+        "Um operador lógico"
+      ],
+      "resposta_correta": 1
+    },
+    {
+      "id": 8,
+      "pergunta": "Qual operador verifica igualdade em JavaScript?",
+      "alternativas": ["=", "==", "===", "!="],
+      "resposta_correta": 2
+    }
+  ],
+  "dificeis": [
+    {
+      "id": 9,
+      "pergunta": "O que é recursão?",
+      "alternativas": [
+        "Um loop infinito",
+        "Uma função que chama a si mesma",
+        "Um tipo de erro",
+        "Uma estrutura de dados"
+      ],
+      "resposta_correta": 1
+    },
+    {
+      "id": 10,
+      "pergunta": "O que significa 'Big O' notation?",
+      "alternativas": [
+        "Tamanho do arquivo",
+        "Complexidade algorítmica",
+        "Número de bugs",
+        "Versão do código"
+      ],
+      "resposta_correta": 1
+    }
+  ]
+}
