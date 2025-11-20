@@ -116,3 +116,10 @@ function mostrarResultado(acertou) {
                 </div>
                 <p class="consequence">❌ NENHUM SÍMBOLO REVELADO</p>
                 <p class="hint">💡 Tente outro card de pergunta!
+</div>
+        `;
+    }
+}
+
+// Iniciar quando página carregar
+window.onload = carregarQuestoes;
