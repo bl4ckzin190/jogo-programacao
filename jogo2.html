@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CipherCode - Decodificação</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="jogo2-body">
+    <div class="container">
+        <div class="header">
+            <h1>🔐 CIPHERCODE</h1>
+            <p class="mission">Missão de Decodificação</p>
+        </div>
+        
+        <div id="color-selection" class="color-selection">
+            <h2>Escolha a codificação para atacar:</h2>
+            <div class="color-buttons">
+                <button class="color-btn red-btn" onclick="selectCoding(1)">
+                    <span class="color-icon">🔴</span>
+                    <span>CODIFICAÇÃO 1</span>
+                </button>
+                <button class="color-btn blue-btn" onclick="selectCoding(2)">
+                    <span class="color-icon">🔵</span>
+                    <span>CODIFICAÇÃO 2</span>
+                </button>
+                <button class="color-btn green-btn" onclick="selectCoding(3)">
+                    <span class="color-icon">🟢</span>
+                    <span>CODIFICAÇÃO 3</span>
+                </button>
+            </div>
+        </div>
+        
+        <div id="question-container" class="question-container" style="display: none;">
+            <div class="coding-badge" id="coding-badge"></div>
+            
+            <div class="question-box">
+                <h2 id="question-text"></h2>
+            </div>
+            
+            <div class="alternatives" id="alternatives-container"></div>
+            
+            <div class="attempts-warning">
+                <p>⚠️ ATENÇÃO: Você tem apenas 1 tentativa!</p>
+            </div>
+        </div>
+        
+        <div id="result-container" class="result-container" style="display: none;">
+            <div id="result-content"></div>
+            <button onclick="window.close()" class="btn-close">Fechar e Voltar ao Jogo</button>
+        </div>
+    </div>
+    
+    <script src="script-jogo2.js"></script>
+</body>
+</html>
