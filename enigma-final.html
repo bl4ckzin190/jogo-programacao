@@ -3,37 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enigma 2</title>
+    <title>Enigma Final</title>
     <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
 
     <section class="container">
 
-        <h1>ENIGMA 2</h1>
+        <h1>ENIGMA FINAL</h1>
 
         <p class="descricao">
-            Conecte as pistas e descubra as duas palavras secretas.
+            Decodifique o enigma abaixo.  
+            Cada símbolo representa uma letra.
         </p>
 
-        <div class="campo">
-            <label>Primeira senha:</label>
-            <input type="text" id="senha1" placeholder="Digite a primeira palavra">
+        <div class="bloco-simbolos">
+            <p>⬤ = A</p>
+            <p>✦ = R</p>
+            <p>◆ = M</p>
+            <p>▲ = O</p>
         </div>
 
-        <div class="campo">
-            <label>Segunda senha:</label>
-            <input type="text" id="senha2" placeholder="Digite a segunda palavra">
-        </div>
+        <p class="codigo">
+            ✦ ◆ ⬤ ▲  
+        </p>
 
-        <button onclick="conferirSenhas()">CONFERIR</button>
+        <input type="text" id="respostaFinal" placeholder="Digite a palavra...">
 
-        <p id="mensagem" class="mensagem"></p>
+        <button onclick="conferirCodigo()">CONFIRMAR</button>
 
-        <button id="refazer" class="refazer" onclick="refazerEnigma()">REFAZER</button>
+        <p id="msgFinal" class="mensagem"></p>
 
     </section>
 
-    <script src="roteiro-enigma.js" defer></script>
+    <script>
+        const respostaCorreta = "armao"; // exemplo
+
+        function conferirCodigo() {
+            const r = document.getElementById("respostaFinal").value.trim().toLowerCase();
+            const msg = document.getElementById("msgFinal");
+
+            if (r === respostaCorreta) {
+                msg.style.color = "#2bff73";
+                msg.innerText = "✔ Código decifrado! Você completou todos os enigmas!";
+                return;
+            }
+
+            msg.style.color = "#ff4444";
+            msg.innerText = "❌ Código incorreto. Tente novamente.";
+        }
+    </script>
+
 </body>
 </html>
+
